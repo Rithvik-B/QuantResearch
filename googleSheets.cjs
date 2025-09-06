@@ -12,15 +12,29 @@ const SHEET_RANGE = 'Sheet1!A:C'; // Adjust if your sheet/tab is named different
 
 async function addToWaitlistSheet(email, source, timestamp) {
   const client = await auth.getClient();
+  // Normalize input email
+  const inputEmail = (email || '').trim().toLowerCase();
+  // Fetch all emails to check for duplicates
+  const resp = await sheets.spreadsheets.values.get({
+    auth: client,
+    spreadsheetId: SPREADSHEET_ID,
+    range: SHEET_RANGE,
+  });
+  const rows = resp.data.values || [];
+  const emails = rows.slice(1).map(row => (row[0] || '').trim().toLowerCase()); // skip header, normalize
+  if (emails.includes(inputEmail)) {
+    return { success: false, error: 'Email already registered' };
+  }
   await sheets.spreadsheets.values.append({
     auth: client,
     spreadsheetId: SPREADSHEET_ID,
     range: SHEET_RANGE,
     valueInputOption: 'RAW',
     requestBody: {
-      values: [[email, source, timestamp]],
+      values: [[inputEmail, source, timestamp]],
     },
   });
+  return { success: true, position: emails.length + 1 };
 }
 
 async function getWaitlistCountSheet() {

@@ -17,11 +17,14 @@ app.post('/api/waitlist', async (req, res) => {
     return res.status(400).json({ success: false, error: 'Missing fields' });
   }
   try {
-    // Check for duplicate (by reading all emails)
-    const count = await getWaitlistCountSheet();
-    // NOTE: For true duplicate check, you would need to fetch all rows and check emails. For simplicity, skipping here.
-    await addToWaitlistSheet(email, source, timestamp);
-    return res.json({ success: true, position: count + 1 });
+    const result = await addToWaitlistSheet(email, source, timestamp);
+    if (result.success) {
+      return res.json({ success: true, position: result.position });
+    } else if (result.error === 'Email already registered') {
+      return res.status(409).json({ success: false, error: 'Email already registered' });
+    } else {
+      return res.status(500).json({ success: false, error: result.error || 'Unknown error' });
+    }
   } catch (err) {
     return res.status(500).json({ success: false, error: 'Failed to write to Google Sheet', details: err.message });
   }

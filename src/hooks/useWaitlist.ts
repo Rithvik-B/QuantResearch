@@ -21,25 +21,25 @@ export const useWaitlist = () => {
   const addToWaitlist = async (email: string, source: string): Promise<{ success: boolean; position?: number; error?: string }> => {
     setIsLoading(true);
     try {
-      // Add new entry
       const newEntry: WaitlistEntry = {
         email,
         source,
         timestamp: new Date().toISOString()
       };
-
-      // Send to backend API to write to CSV
       const apiRes = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newEntry)
       });
       const apiData = await apiRes.json();
+      if (apiRes.status === 409) {
+        setIsLoading(false);
+        return { success: false, error: 'Email already registered' };
+      }
       if (!apiRes.ok) {
         setIsLoading(false);
         return { success: false, error: apiData.error || 'Server error. Try again.' };
       }
-      // Update local state for UI
       await loadWaitlistCount();
       setIsLoading(false);
       return { success: true, position: apiData.position };
