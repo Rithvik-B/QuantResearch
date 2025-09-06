@@ -1,14 +1,28 @@
+
 const { google } = require('googleapis');
-const creds = require('./google-credentials.json');
+require('dotenv').config();
 
 const sheets = google.sheets('v4');
+const creds = {
+  type: process.env.GOOGLE_TYPE,
+  project_id: process.env.GOOGLE_PROJECT_ID,
+  private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+  private_key: process.env.GOOGLE_PRIVATE_KEY ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
+  client_email: process.env.GOOGLE_CLIENT_EMAIL,
+  client_id: process.env.GOOGLE_CLIENT_ID,
+  auth_uri: process.env.GOOGLE_AUTH_URI,
+  token_uri: process.env.GOOGLE_TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
+  client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL
+};
+
 const auth = new google.auth.GoogleAuth({
   credentials: creds,
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-const SPREADSHEET_ID = '1lPB6azLevPi3roXGt1OAvTe-R2X11X7lGEqCu1YtYuQ'; // <-- Replace with your actual Google Sheet ID
-const SHEET_RANGE = 'Sheet1!A:C'; // Adjust if your sheet/tab is named differently
+const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID; // Set this in your .env
+const SHEET_RANGE = process.env.GOOGLE_SHEET_RANGE || 'Sheet1!A:C';
 
 async function addToWaitlistSheet(email, source, timestamp) {
   const client = await auth.getClient();

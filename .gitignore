@@ -1,6 +1,7 @@
 # Ignore waitlist data file
 waitlist.csv
 data.csv
+.env
 # Logs
 logs
 *.log

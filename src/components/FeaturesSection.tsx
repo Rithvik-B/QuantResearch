@@ -7,25 +7,25 @@ const FeaturesSection = () => {
       icon: <MessageCircle className="w-8 h-8 text-blue-500" />,
       title: "Chat with Any Stock",
       description: "Ask questions, get intelligent answers instantly",
-      img: "/assets/chat-interface-wireframe.png"
+  img: "assets/chat-interface-wireframe.png"
     },
     {
       icon: <FileText className="w-8 h-8 text-emerald-500" />,
       title: "Auto-Report Analysis", 
       description: "127-page reports → 2-minute insights",
-      img: "/assets/report-summary-dashboard-wireframe.png"
+  img: "assets/report-summary-dashboard-wireframe.png"
     },
     {
       icon: <BarChart3 className="w-8 h-8 text-purple-500" />,
       title: "Interactive Financial Charts",
       description: "See trends and patterns, not just numbers",
-      img: "/assets/dynamic-charts-wireframe.png"
+  img: "assets/dynamic-charts-wireframe.png"
     },
     {
       icon: <Bot className="w-8 h-8 text-orange-500" />,
       title: "AI Research Agent",
       description: "Your personal equity research analyst",
-      img: "/assets/ai-analysis-dashboard-wireframe.png"
+  img: "assets/ai-analysis-dashboard-wireframe.png"
     },
     {
       icon: <FileText className="w-8 h-8 text-pink-500" />,
@@ -38,7 +38,7 @@ const FeaturesSection = () => {
           <div>First to connect macro events to specific stock impact</div>
         </>
       ),
-      img: "/assets/event-news-tracking.png"
+  img: "assets/event-news-tracking.png"
     }
   ];
 
