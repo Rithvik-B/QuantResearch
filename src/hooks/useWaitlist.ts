@@ -60,13 +60,6 @@ export const useWaitlist = () => {
 
   useEffect(() => {
     loadWaitlistCount();
-    
-    // Update count periodically to simulate growth
-    const interval = setInterval(() => {
-      setWaitlistCount(prev => prev + Math.floor(Math.random() * 2));
-    }, 8000);
-    
-    return () => clearInterval(interval);
   }, []);
 
   return {

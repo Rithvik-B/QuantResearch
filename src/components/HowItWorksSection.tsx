@@ -35,20 +35,20 @@ const HowItWorksSection = () => {
           </h2>
         </div>
 
-  <div className="relative grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20 xl:gap-28 w-full">
+  <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto">
     {steps.map((step, index) => (
-      <div key={index} className="bg-white rounded-3xl p-10 md:p-12 min-h-[420px] md:min-h-[520px] min-w-[320px] md:min-w-[370px] border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col items-center text-center relative">
+      <div key={index} className="bg-white rounded-2xl p-4 md:p-6 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center">
         {/* Step badge above image, with extra gap */}
-        <div className="flex flex-col items-center w-full mb-8">
-          <span className="mb-4 w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg border-4 border-white z-10">{step.step}</span>
-          <img src={step.img} alt={step.title + ' wireframe'} className="h-56 w-auto object-contain mx-auto rounded-xl shadow-sm" />
+        <div className="flex flex-col items-center w-full mb-5">
+          <span className="mb-3 w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg border-4 border-white z-10">{step.step}</span>
+          <img src={step.img} alt={step.title + ' wireframe'} className="w-full max-w-4xl h-[320px] md:h-[400px] object-contain mx-auto rounded-xl shadow-sm" />
         </div>
         {/* Icon beside title */}
-        <div className="flex items-center justify-center gap-3 mb-2">
+        <div className="flex items-center justify-center gap-2 mb-1">
           <span className="scale-110">{step.icon}</span>
           <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{step.title}</h3>
         </div>
-        <p className="text-slate-600 mt-2 mb-2 leading-relaxed text-lg font-medium">{step.description}</p>
+        <p className="text-slate-600 mt-1 mb-1 leading-relaxed text-lg font-medium">{step.description}</p>
       </div>
     ))}
   </div>

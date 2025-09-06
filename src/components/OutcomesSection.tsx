@@ -21,7 +21,7 @@ const OutcomesSection = () => {
   ];
 
   return (
-  <section className="py-20 bg-gradient-to-b from-slate-50 via-white to-blue-50">
+  <section className="pt-20 pb-4 bg-gradient-to-b from-slate-50 via-white to-blue-50">
   <div className="max-w-7xl mx-auto px-4 sm:px-8">
   <div className="text-center mb-14">
           <h2 className="text-4xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight drop-shadow-sm">
@@ -32,7 +32,7 @@ const OutcomesSection = () => {
           </p>
         </div>
 
-  <div className="flex flex-col lg:flex-row items-stretch gap-8 mb-14">
+  <div className="flex flex-col lg:flex-row items-stretch gap-8 mb-7">
           {outcomes.map((outcome, index) => (
             <div key={index} className="flex-1 bg-white/90 p-10 rounded-3xl border border-slate-200 shadow-md hover:shadow-2xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">
               <div className="mb-6 scale-110 group-hover:scale-125 transition-transform duration-300">{outcome.icon}</div>
@@ -42,14 +42,14 @@ const OutcomesSection = () => {
           ))}
         </div>
 
-  <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-10 lg:p-14 rounded-3xl text-center shadow-xl mt-10">
-          <p className="text-lg lg:text-2xl text-blue-100 leading-relaxed mb-3 font-medium">
-            QuantResearch makes this possible.
-          </p>
-          <p className="text-xl lg:text-2xl text-white font-extrabold">
-            Invest with clarity, not confusion.
-          </p>
-        </div>
+  <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-5 lg:px-8 lg:py-7 rounded-2xl text-center shadow-xl mt-6 mb-7">
+    <p className="text-base lg:text-xl text-blue-100 leading-relaxed mb-1 font-medium">
+      QuantResearch makes this possible.
+    </p>
+    <p className="text-lg lg:text-2xl text-white font-extrabold">
+      Invest with clarity, not confusion.
+    </p>
+  </div>
       </div>
     </section>
   );
