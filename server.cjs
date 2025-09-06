@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const CSV_PATH = path.join(__dirname, 'data.csv');
+const CSV_PATH = path.join(process.cwd(), 'data.csv');
 
 app.use(cors());
 app.use(express.json());
@@ -25,8 +25,9 @@ app.post('/api/waitlist', (req, res) => {
   });
 });
 
-// Serve CSV for GET
-app.get('/data.csv', (req, res) => {
+
+// Serve CSV for GET (API endpoint)
+app.get('/api/waitlist', (req, res) => {
   res.sendFile(CSV_PATH);
 });
 

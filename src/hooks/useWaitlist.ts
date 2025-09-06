@@ -7,7 +7,7 @@ export const useWaitlist = () => {
 
   const loadWaitlistCount = async () => {
     try {
-  const response = await fetch('https://quantresearch-rvou.onrender.com/data.csv');
+  const response = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist');
       if (response.ok) {
         const csvContent = await response.text();
         const count = getWaitlistCount(csvContent);
@@ -24,7 +24,7 @@ export const useWaitlist = () => {
       // Read current CSV
       let csvContent = 'email,source,timestamp\n';
       try {
-  const response = await fetch('https://quantresearch-rvou.onrender.com/data.csv');
+  const response = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist');
         if (response.ok) {
           csvContent = await response.text();
         }
