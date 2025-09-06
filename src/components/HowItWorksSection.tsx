@@ -8,21 +8,21 @@ const HowItWorksSection = () => {
       icon: <Search className="w-8 h-8 text-blue-500" />,
       title: "Pick Any Stock",
       description: "Search for any publicly traded company",
-  img: "/public/img/search-interface-wireframe.png"
+  img: "/img/search-interface-wireframe.png"
     },
     {
       step: 2,
       icon: <MessageSquare className="w-8 h-8 text-emerald-500" />,
       title: "Ask Anything",
       description: "Chat with AI about financials, strategy, risks",
-  img: "/public/img/stock-chat-interface-wireframe.png"
+  img: "/img/stock-chat-interface-wireframe.png"
     },
     {
       step: 3,
       icon: <BarChart3 className="w-8 h-8 text-purple-500" />,
       title: "Get Insights",
       description: "Receive intelligent analysis and recommendations",
-  img: "/public/img/analysis-dashboard-wireframe.png"
+  img: "/img/analysis-dashboard-wireframe.png"
     }
   ];
 

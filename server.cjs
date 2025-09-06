@@ -5,7 +5,11 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const CSV_PATH = path.join(process.cwd(), 'data.csv');
+const CSV_PATH = path.join(process.cwd(), 'waitlist.csv');
+// Ensure waitlist.csv exists with header
+if (!fs.existsSync(CSV_PATH)) {
+  fs.writeFileSync(CSV_PATH, 'email,source,timestamp\n');
+}
 
 app.use(cors());
 app.use(express.json());
