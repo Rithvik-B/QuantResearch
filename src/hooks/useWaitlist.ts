@@ -1,45 +1,26 @@
 import { useState, useEffect } from 'react';
-import { WaitlistEntry, parseCSV, addToCSV, getWaitlistCount, getUserPosition } from '../utils/csvHandler';
+import { WaitlistEntry } from '../utils/csvHandler';
 
 export const useWaitlist = () => {
   const [waitlistCount, setWaitlistCount] = useState(500); // Base count
   const [isLoading, setIsLoading] = useState(false);
 
+  // Get waitlist count from backend
   const loadWaitlistCount = async () => {
     try {
-  const response = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist');
+      const response = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist/count');
       if (response.ok) {
-        const csvContent = await response.text();
-        const count = getWaitlistCount(csvContent);
-        setWaitlistCount(500 + count); // Base + actual signups
+        const data = await response.json();
+        setWaitlistCount(500 + (data.count || 0));
       }
     } catch (error) {
-      console.log('CSV not found, using base count');
+      console.log('Count API failed, using base count');
     }
   };
 
   const addToWaitlist = async (email: string, source: string): Promise<{ success: boolean; position?: number; error?: string }> => {
     setIsLoading(true);
     try {
-      // Read current CSV
-      let csvContent = 'email,source,timestamp\n';
-      try {
-  const response = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist');
-        if (response.ok) {
-          csvContent = await response.text();
-        }
-      } catch (error) {
-        // File doesn't exist, use header only
-      }
-
-      // Check if email already exists
-      const entries = parseCSV(csvContent);
-      const existingEntry = entries.find(entry => entry.email === email);
-      if (existingEntry) {
-        setIsLoading(false);
-        return { success: false, error: 'Email already registered' };
-      }
-
       // Add new entry
       const newEntry: WaitlistEntry = {
         email,
@@ -48,27 +29,33 @@ export const useWaitlist = () => {
       };
 
       // Send to backend API to write to CSV
-  const apiRes = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist', {
+      const apiRes = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newEntry)
       });
+      const apiData = await apiRes.json();
       if (!apiRes.ok) {
         setIsLoading(false);
-        return { success: false, error: 'Server error. Try again.' };
+        return { success: false, error: apiData.error || 'Server error. Try again.' };
       }
-
       // Update local state for UI
-      const updatedCSV = addToCSV(csvContent, newEntry);
-      const newCount = getWaitlistCount(updatedCSV);
-      const position = getUserPosition(updatedCSV, email);
-      setWaitlistCount(500 + newCount);
+      await loadWaitlistCount();
       setIsLoading(false);
-      return { success: true, position };
+      return { success: true, position: apiData.position };
     } catch (error) {
       setIsLoading(false);
       return { success: false, error: 'Failed to join waitlist' };
     }
+  };
+
+  // Optionally: function to get CSV (if needed)
+  const getWaitlistCSV = async (): Promise<string> => {
+    const response = await fetch('https://quantresearch-rvou.onrender.com/api/waitlist/csv');
+    if (response.ok) {
+      return await response.text();
+    }
+    return '';
   };
 
   useEffect(() => {
@@ -85,6 +72,7 @@ export const useWaitlist = () => {
   return {
     waitlistCount,
     addToWaitlist,
+    getWaitlistCSV: getWaitlistCSV,
     isLoading
   };
 };
