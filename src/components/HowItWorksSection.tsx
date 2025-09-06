@@ -8,21 +8,21 @@ const HowItWorksSection = () => {
       icon: <Search className="w-8 h-8 text-blue-500" />,
       title: "Pick Any Stock",
       description: "Search for any publicly traded company",
-      wireframe: "Search interface wireframe showing stock lookup"
+      img: "/img/search-interface-wireframe.png"
     },
     {
       step: 2,
       icon: <MessageSquare className="w-8 h-8 text-emerald-500" />,
       title: "Ask Anything",
       description: "Chat with AI about financials, strategy, risks",
-      wireframe: "Chat interface wireframe with stock questions"
+      img: "/img/stock-chat-interface-wireframe.png"
     },
     {
       step: 3,
       icon: <BarChart3 className="w-8 h-8 text-purple-500" />,
       title: "Get Insights",
       description: "Receive intelligent analysis and recommendations",
-      wireframe: "Analysis dashboard wireframe with insights"
+      img: "/img/analysis-dashboard-wireframe.png"
     }
   ];
 
@@ -52,11 +52,9 @@ const HowItWorksSection = () => {
               <h3 className="text-xl font-bold text-slate-900 mb-4">{step.title}</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">{step.description}</p>
               
-              {/* Wireframe */}
-              <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-6 h-24 w-full flex items-center justify-center">
-                <span className="text-xs text-slate-500 text-center leading-tight font-medium">
-                  [{step.wireframe}]
-                </span>
+              {/* Wireframe Image Placeholder */}
+              <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-2 h-24 w-full flex items-center justify-center">
+                <img src={step.img} alt={step.title + ' wireframe'} className="h-full object-contain" />
               </div>
               
               {/* Arrow */}

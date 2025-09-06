@@ -21,7 +21,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 py-20 lg:py-32">
+  <div className="relative max-w-6xl mx-auto px-6 py-8 lg:py-12">
         <div className="text-center">
           {/* Logo */}
           <div className="flex items-center justify-center mb-16">
@@ -61,13 +61,15 @@ const HeroSection = () => {
           </div>
 
           {/* Email Capture */}
-          <div className="max-w-lg mx-auto">
-            <EmailCapture 
-              placeholder="your.email@example.com"
-              buttonText="Join the Waitlist — Be First to Invest Smarter"
-              source="hero"
-              showCounter={true}
-            />
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-2xl">
+              <EmailCapture 
+                placeholder="your.email@example.com"
+                buttonText="Join the Waitlist — Be First to Invest Smarter"
+                source="hero"
+                showCounter={true}
+              />
+            </div>
           </div>
         </div>
       </div>

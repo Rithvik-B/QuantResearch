@@ -20,7 +20,6 @@ export const useWaitlist = () => {
 
   const addToWaitlist = async (email: string, source: string): Promise<{ success: boolean; position?: number; error?: string }> => {
     setIsLoading(true);
-    
     try {
       // Read current CSV
       let csvContent = 'email,source,timestamp\n';
@@ -48,16 +47,23 @@ export const useWaitlist = () => {
         timestamp: new Date().toISOString()
       };
 
+      // Send to backend API to write to CSV
+      const apiRes = await fetch('http://localhost:3001/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newEntry)
+      });
+      if (!apiRes.ok) {
+        setIsLoading(false);
+        return { success: false, error: 'Server error. Try again.' };
+      }
+
+      // Update local state for UI
       const updatedCSV = addToCSV(csvContent, newEntry);
-      
-      // In a real app, this would be a server endpoint
-      // For demo, we'll simulate success and update local state
       const newCount = getWaitlistCount(updatedCSV);
       const position = getUserPosition(updatedCSV, email);
-      
       setWaitlistCount(500 + newCount);
       setIsLoading(false);
-      
       return { success: true, position };
     } catch (error) {
       setIsLoading(false);

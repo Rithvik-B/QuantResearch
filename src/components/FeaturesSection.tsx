@@ -7,25 +7,25 @@ const FeaturesSection = () => {
       icon: <MessageCircle className="w-8 h-8 text-blue-500" />,
       title: "Chat with Any Stock",
       description: "Ask questions, get intelligent answers instantly",
-      wireframe: "Wireframe of chat interface showing Q&A with AAPL stock"
+      img: "/img/chat-interface-wireframe.png"
     },
     {
       icon: <FileText className="w-8 h-8 text-emerald-500" />,
       title: "Auto-Report Analysis", 
       description: "127-page reports → 2-minute insights",
-      wireframe: "Wireframe of report summary dashboard with key metrics"
+      img: "/img/report-summary-dashboard-wireframe.png"
     },
     {
       icon: <BarChart3 className="w-8 h-8 text-purple-500" />,
       title: "Interactive Financial Charts",
       description: "See trends and patterns, not just numbers",
-      wireframe: "Wireframe of dynamic charts with trend analysis"
+      img: "/img/dynamic-charts-wireframe.png"
     },
     {
       icon: <Bot className="w-8 h-8 text-orange-500" />,
       title: "AI Research Agent",
       description: "Your personal equity research analyst",
-      wireframe: "Wireframe of AI analysis dashboard with insights"
+      img: "/img/ai-analysis-dashboard-wireframe.png"
     }
   ];
 
@@ -49,11 +49,9 @@ const FeaturesSection = () => {
               <h3 className="text-lg font-bold text-slate-900 mb-4">{feature.title}</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">{feature.description}</p>
               
-              {/* Wireframe Placeholder */}
-              <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-6 h-32 flex items-center justify-center group-hover:border-blue-300 transition-colors duration-300">
-                <span className="text-xs text-slate-500 text-center leading-tight font-medium">
-                  [{feature.wireframe}]
-                </span>
+              {/* Wireframe Image Placeholder */}
+              <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-2 h-32 flex items-center justify-center group-hover:border-blue-300 transition-colors duration-300">
+                <img src={feature.img} alt={feature.title + ' wireframe'} className="h-full object-contain" />
               </div>
             </div>
           ))}

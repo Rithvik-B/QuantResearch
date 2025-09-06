@@ -75,7 +75,7 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({
   }
 
   return (
-    <div className="space-y-4">
+  <div className="space-y-4 w-full">
       {showCounter && (
         <div className="flex items-center justify-center text-gray-600 mb-4">
           <Users className="w-5 h-5 mr-2" />
@@ -83,34 +83,35 @@ const EmailCapture: React.FC<EmailCaptureProps> = ({
         </div>
       )}
       
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className={`flex flex-col ${compact ? 'sm:flex-row' : 'lg:flex-row'} gap-3`}>
-          <div className="flex-1">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setStatus('idle');
-                setMessage('');
-              }}
-              placeholder={placeholder}
-              className={`w-full ${compact ? 'px-4 py-3' : 'px-6 py-4'} text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 font-medium ${
-                status === 'error' ? 'border-red-400 focus:ring-red-500 focus:border-red-500' : ''
-              }`}
-              disabled={status === 'loading' || isLoading}
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-4 w-full">
+        <div className="flex flex-col sm:flex-row gap-3 w-full">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setStatus('idle');
+              setMessage('');
+            }}
+            placeholder={placeholder}
+            className={`flex-grow min-w-[220px] max-w-full ${compact ? 'px-4 py-3' : 'px-7 py-5'} text-lg text-gray-900 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 font-medium ${
+              status === 'error' ? 'border-red-400 focus:ring-red-500 focus:border-red-500' : ''
+            }`}
+            style={{ fontFamily: 'monospace' }}
+            autoComplete="email"
+            disabled={status === 'loading' || isLoading}
+          />
           <button
             type="submit"
             disabled={status === 'loading' || isLoading}
-            className={`${compact ? 'px-6 py-3' : 'px-8 py-4'} bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed group shadow-lg hover:shadow-xl transform hover:-translate-y-0.5`}
+            className={`${compact ? 'px-7 py-3 text-base' : 'px-10 py-5 text-lg'} bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed group shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 whitespace-nowrap`}
+            style={{ width: 'auto', minWidth: 0 }}
           >
             {status === 'loading' || isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <span className="whitespace-nowrap">{buttonText}</span>
+                <span>{buttonText}</span>
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
               </>
             )}
