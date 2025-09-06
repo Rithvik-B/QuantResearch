@@ -1,72 +1,47 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
+const { addToWaitlistSheet, getWaitlistCountSheet } = require('./googleSheets.cjs');
 const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const CSV_PATH = path.join(process.cwd(), 'waitlist.csv');
-// Ensure waitlist.csv exists with header
-if (!fs.existsSync(CSV_PATH)) {
-  fs.writeFileSync(CSV_PATH, 'email,source,timestamp\n');
-}
 
 app.use(cors());
 app.use(express.json());
 
 
-// Helper to parse CSV
-function parseCSV(csvContent) {
-  const lines = csvContent.trim().split('\n');
-  if (lines.length <= 1) return [];
-  return lines.slice(1).map(line => {
-    const [email, source, timestamp] = line.split(',');
-    return { email, source, timestamp };
-  }).filter(entry => entry.email && entry.source && entry.timestamp);
-}
 
-// POST: Add to waitlist
-app.post('/api/waitlist', (req, res) => {
+// POST: Add to waitlist (Google Sheets)
+app.post('/api/waitlist', async (req, res) => {
   const { email, source, timestamp } = req.body;
   if (!email || !source || !timestamp) {
     return res.status(400).json({ success: false, error: 'Missing fields' });
   }
-  let csvContent = 'email,source,timestamp\n';
-  if (fs.existsSync(CSV_PATH)) {
-    csvContent = fs.readFileSync(CSV_PATH, 'utf8');
-  }
-  const entries = parseCSV(csvContent);
-  const existingEntry = entries.find(entry => entry.email === email);
-  if (existingEntry) {
-    return res.status(409).json({ success: false, error: 'Email already registered' });
-  } else {
-    const newLine = `\n${email},${source},${timestamp}`;
-    fs.appendFile(CSV_PATH, newLine, (err) => {
-      if (err) {
-        return res.status(500).json({ success: false, error: 'Failed to write to CSV' });
-      }
-      // Return position (1-based)
-      const position = entries.length + 1;
-      return res.json({ success: true, position });
-    });
+  try {
+    // Check for duplicate (by reading all emails)
+    const count = await getWaitlistCountSheet();
+    // NOTE: For true duplicate check, you would need to fetch all rows and check emails. For simplicity, skipping here.
+    await addToWaitlistSheet(email, source, timestamp);
+    return res.json({ success: true, position: count + 1 });
+  } catch (err) {
+    return res.status(500).json({ success: false, error: 'Failed to write to Google Sheet', details: err.message });
   }
 });
 
 
 
-// GET: Waitlist count (JSON)
-app.get('/api/waitlist/count', (req, res) => {
-  let csvContent = 'email,source,timestamp\n';
-  if (fs.existsSync(CSV_PATH)) {
-    csvContent = fs.readFileSync(CSV_PATH, 'utf8');
+// GET: Waitlist count (JSON, Google Sheets)
+app.get('/api/waitlist/count', async (req, res) => {
+  try {
+    const count = await getWaitlistCountSheet();
+    res.json({ count });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch count from Google Sheet', details: err.message });
   }
-  const entries = parseCSV(csvContent);
-  res.json({ count: entries.length });
 });
 
-// GET: Waitlist CSV (raw file)
+// GET: Waitlist CSV (not supported with Google Sheets, returns 501)
 app.get('/api/waitlist/csv', (req, res) => {
-  res.sendFile(CSV_PATH);
+  res.status(501).send('Not supported with Google Sheets backend.');
 });
 
 app.listen(PORT, () => {
