@@ -35,16 +35,17 @@ app.post('/api/waitlist', (req, res) => {
   const existingEntry = entries.find(entry => entry.email === email);
   if (existingEntry) {
     return res.status(409).json({ success: false, error: 'Email already registered' });
+  } else {
+    const newLine = `\n${email},${source},${timestamp}`;
+    fs.appendFile(CSV_PATH, newLine, (err) => {
+      if (err) {
+        return res.status(500).json({ success: false, error: 'Failed to write to CSV' });
+      }
+      // Return position (1-based)
+      const position = entries.length + 1;
+      return res.json({ success: true, position });
+    });
   }
-  const newLine = `\n${email},${source},${timestamp}`;
-  fs.appendFile(CSV_PATH, newLine, (err) => {
-    if (err) {
-      return res.status(500).json({ success: false, error: 'Failed to write to CSV' });
-    }
-    // Return position (1-based)
-    const position = entries.length + 1;
-    return res.json({ success: true, position });
-  });
 });
 
 
