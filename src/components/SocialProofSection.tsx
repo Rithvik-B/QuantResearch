@@ -21,9 +21,9 @@ const SocialProofSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-20">
+  <section className="py-16 bg-white">
+  <div className="max-w-6xl mx-auto px-4">
+  <div className="text-center mb-14">
           <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tight">
             What Smart Investors Are Saying
           </h2>

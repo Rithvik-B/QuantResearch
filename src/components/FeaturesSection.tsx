@@ -30,9 +30,9 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-20">
+  <section className="py-20 bg-white">
+  <div className="max-w-6xl mx-auto px-4">
+  <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tight">
             Bloomberg Terminal Intelligence.
             <br />
@@ -40,19 +40,19 @@ const FeaturesSection = () => {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {features.map((feature, index) => (
-            <div key={index} className="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:shadow-xl hover:border-blue-300 transition-all duration-300 group">
-              <div className="mb-6 group-hover:scale-110 transition-transform duration-300">
-                {feature.icon}
+            <div key={index} className="bg-slate-50 rounded-3xl p-10 border border-slate-200 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 group flex flex-col items-center text-center">
+              {/* Image on top, no border */}
+              <div className="mb-7 w-full flex items-center justify-center">
+                <img src={feature.img} alt={feature.title + ' wireframe'} className="h-72 w-[95%] max-w-[520px] object-contain mx-auto rounded-xl shadow-sm" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-4">{feature.title}</h3>
-              <p className="text-slate-600 mb-8 leading-relaxed">{feature.description}</p>
-              
-              {/* Wireframe Image Placeholder */}
-              <div className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-2 h-32 flex items-center justify-center group-hover:border-blue-300 transition-colors duration-300">
-                <img src={feature.img} alt={feature.title + ' wireframe'} className="h-full object-contain" />
+              {/* Icon beside title */}
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <span className="scale-110">{feature.icon}</span>
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{feature.title}</h3>
               </div>
+              <p className="text-slate-600 mt-2 mb-2 leading-relaxed text-lg font-medium">{feature.description}</p>
             </div>
           ))}
         </div>

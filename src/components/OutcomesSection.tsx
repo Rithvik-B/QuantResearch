@@ -21,32 +21,33 @@ const OutcomesSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-50">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tight">
+  <section className="py-20 bg-gradient-to-b from-slate-50 via-white to-blue-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-8">
+  <div className="text-center mb-14">
+          <h2 className="text-4xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight drop-shadow-sm">
             Imagine Investing with Complete Confidence
           </h2>
+          <p className="text-lg lg:text-xl text-slate-500 max-w-6xl mx-auto">
+            What if every stock could explain itself to you? Now it can—with AI-powered research, visual insights, and answers in plain English.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-20">
+  <div className="flex flex-col lg:flex-row items-stretch gap-8 mb-14">
           {outcomes.map((outcome, index) => (
-            <div key={index} className="bg-white p-10 rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 group">
-              <div className="mb-8 group-hover:scale-110 transition-transform duration-300">
-                {outcome.icon}
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-6">{outcome.title}</h3>
-              <p className="text-slate-600 leading-relaxed text-lg">{outcome.description}</p>
+            <div key={index} className="flex-1 bg-white/90 p-10 rounded-3xl border border-slate-200 shadow-md hover:shadow-2xl hover:border-blue-200 transition-all duration-300 flex flex-col items-center text-center">
+              <div className="mb-6 scale-110 group-hover:scale-125 transition-transform duration-300">{outcome.icon}</div>
+              <h3 className="text-2xl font-semibold text-slate-900 mb-4 tracking-tight">{outcome.title}</h3>
+              <p className="text-slate-600 leading-relaxed text-base lg:text-lg font-normal max-w-xs mx-auto">{outcome.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-12 lg:p-16 rounded-2xl text-center">
-          <p className="text-xl lg:text-2xl text-blue-100 leading-relaxed mb-4">
-            What if every stock could explain itself to you? 
-          </p>
-          <p className="text-xl lg:text-2xl text-white font-semibold">
+  <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-10 lg:p-14 rounded-3xl text-center shadow-xl mt-10">
+          <p className="text-lg lg:text-2xl text-blue-100 leading-relaxed mb-3 font-medium">
             QuantResearch makes this possible.
+          </p>
+          <p className="text-xl lg:text-2xl text-white font-extrabold">
+            Invest with clarity, not confusion.
           </p>
         </div>
       </div>
