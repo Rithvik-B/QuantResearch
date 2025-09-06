@@ -26,7 +26,7 @@ const FinalCTASection = () => {
           </div>
           <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:bg-slate-800/70 transition-all duration-300">
             <Calendar className="w-10 h-10 text-emerald-400 mx-auto mb-4" />
-            <p className="text-3xl font-bold text-white mb-2">Q1 2025</p>
+            <p className="text-3xl font-bold text-white mb-2">Q1 2026</p>
             <p className="text-slate-400">Launch Expected</p>
           </div>
           <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 hover:bg-slate-800/70 transition-all duration-300">
