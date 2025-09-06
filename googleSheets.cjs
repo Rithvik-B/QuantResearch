@@ -7,7 +7,7 @@ const auth = new google.auth.GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-const SPREADSHEET_ID = 'PASTE_YOUR_SPREADSHEET_ID_HERE'; // <-- Replace with your actual Google Sheet ID
+const SPREADSHEET_ID = '1lPB6azLevPi3roXGt1OAvTe-R2X11X7lGEqCu1YtYuQ'; // <-- Replace with your actual Google Sheet ID
 const SHEET_RANGE = 'Sheet1!A:C'; // Adjust if your sheet/tab is named differently
 
 async function addToWaitlistSheet(email, source, timestamp) {
